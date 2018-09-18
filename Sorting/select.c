@@ -1,5 +1,5 @@
 #include<stdio.h>
-void selectSort(int size, int* num);
+void selectSort(int, int*);
 int main(void)
 {
 	int size = 50;

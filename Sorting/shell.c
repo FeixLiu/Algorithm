@@ -1,5 +1,5 @@
 #include<stdio.h>
-void shellSort(int size, int* num);
+void shellSort(int, int*);
 int main(void)
 {
 	int size = 50;

@@ -1,5 +1,5 @@
 #include<stdio.h>
-void insertSort(int size, int* num);
+void insertSort(int, int*);
 int main(void)
 {
 	int size = 50;

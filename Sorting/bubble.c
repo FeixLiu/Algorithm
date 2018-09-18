@@ -1,5 +1,5 @@
 #include<stdio.h>
-void bubbleSort(int size, int* num);
+void bubbleSort(int, int*);
 int main(void)
 {
 	int size = 50;
