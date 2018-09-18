@@ -27,9 +27,9 @@ void insertSort(int size, int* num)
 	{
 		current = num[count];
 		i = count;
-		while(i > 0 && num[i-1] > current) //be aware of this current instead of num[i]
+		while(i > 0 && num[i - 1] > current) //be aware of this current instead of num[i]
 		{
-			num[i] = num[i-1];
+			num[i] = num[i - 1];
 			i--;
 		}
 		num[i] = current;

@@ -1,5 +1,5 @@
 #include<stdio.h>
-void bubbleSort(int size, int* num);
+void shellSort(int size, int* num);
 int main(void)
 {
 	int size = 50;
@@ -8,7 +8,7 @@ int main(void)
 		       47, 49, 29, 39, 27, 61, 34, 58, 19, 21,
 		       86, 41, 05, 83, 69, 91,  8, 90, 99, 84,
 		       83, 58, 30, 10, 15, 82, 23, 28, 95, 94};
-	bubbleSort(size, num);
+	shellSort(size, num);
 	int count;
 	for(count = 0; count < size; count ++)
 	{
@@ -18,21 +18,4 @@ int main(void)
 	}
 	printf("\n");
 	return 0;
-}
-
-void bubbleSort(int size, int* num)
-{
-	int i, j;
-	for(i = 0; i < size; i ++)
-	{
-		for(j = 0; j < size - i - 1; j ++)
-		{
-			if(num[j] >= num[j + 1])
-			{
-				int temp = num[j];
-				num[j] = num[j + 1];
-				num[j + 1] = temp;
-			}	
-		}
-	}
 }
