@@ -19,3 +19,23 @@ int main(void)
 	printf("\n");
 	return 0;
 }
+
+void shellSort(int size, int* num)
+{
+	int temp, gap, i;
+	gap = size / 2;
+	while(gap > 0)
+	{
+		for(i = gap; i < size; i ++)
+		{
+			temp = num[i];
+			while(i - gap >= 0 && num[i - gap] > temp)
+			{
+				num[i] = num[i - gap];
+				i -= gap;
+			}
+			num[i] = temp;
+		}
+		gap /= 2;
+	}
+}
