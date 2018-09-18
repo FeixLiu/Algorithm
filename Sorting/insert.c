@@ -23,7 +23,7 @@ int main(void)
 void insertSort(int size, int* num)
 {
 	int count, current, i;
-	for(count = 0; count < size; count ++)
+	for(count = 1; count < size; count ++)
 	{
 		current = num[count];
 		i = count;
