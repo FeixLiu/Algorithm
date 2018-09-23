@@ -40,5 +40,11 @@ void changes(int total)
 	if(sum[total].nCoin == INT_MAX)
 		printf("Cannot make change.\n");
 	else
-		printf("%d\n", sum[total].nCoin);
+	{
+		while(total > 0)
+		{
+			printf("%d %d\n", sum[total].nCoin, sum[total].addCoin);
+			total -= sum[total].addCoin;
+		}
+	}
 }
