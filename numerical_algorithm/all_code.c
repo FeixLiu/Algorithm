@@ -47,7 +47,7 @@ int* findPrime(long max_number)
 	int stop_at = sqrt(max_number);
 	while(next_prime < stop_at)
 	{
-		for(i = next_prime * 2; i <= max_number; i += next_prime)
+		for(i = next_prime * next_prime; i <= max_number; i += next_prime)
 			is_complete[i] = 1;
 		next_prime += 2;
 		while(next_prime <= max_number && is_complete[next_prime])
@@ -63,7 +63,7 @@ int* findPrime(long max_number)
 
 //use Fermat's little theorem that is if p is a prime then for any given n pow(n, p - 1) % p == 1
 //pay attention to Fermat liars that are some n that makes non-prime p satisfying pow(n, p - 1) % p == 1
-int is_prime(int p, int max_test)
+int isPrime(int p, int max_test)
 {
 	int test;
 	for(test = 1; test <= max_test; test ++)
@@ -152,4 +152,99 @@ float findZero(float initial_guess, float max_error)
 		x -= y / dfdx(x); //use the derivation to update the value of x
 	}
 	return x;
+}
+
+int LCM(int a, int b)
+{
+	return a * b / GCD(a, b);
+}
+
+//calculate exponent th power of value
+int fastPower(int value, int exponent)
+{
+	int powers[ceil(exponent / 2) + 1], countp = 0;
+	int values[ceil(exponent / 2) + 1], countv = 0;
+	int last_power = 1, last_value = value;
+	powers[countp ++] = last_power;
+	values[countv ++] = last_value;
+
+	while(last_power < exponent)
+	{
+		last_power *= 2;
+		last_value *= last_value;
+		powers[countp ++] = last_power;
+		values[countv ++] = last_value;
+	}
+
+	int result = 1;
+	countp -= 1;
+	while(countp >= 0)
+	{
+		if(powers[countp] <= exponent)
+		{
+			exponent -= powers[countp];
+			result *= values[countp];
+		}
+		countp -= 1;
+	}
+	return result;
+}
+
+int fastModPower(int value, int exponent, int mod)
+{
+	int powers[ceil(exponent / 2) + 1], countp = 0;
+	int values[ceil(exponent / 2) + 1], countv = 0;
+	int last_power = 1, last_value = value;
+	powers[countp ++] = last_power;
+	values[countv ++] = last_value;
+
+	while(last_power < exponent)
+	{
+		last_power *= 2;
+		last_value = (last_value * last_value) % mod;
+		powers[countp ++] = last_power;
+		values[countv ++] = last_value;
+	}
+
+	int result = 1;
+	countp -= 1;
+	while(countp >= 0)
+	{
+		if(powers[countp] <= exponent)
+		{
+			exponent -= powers[countp];
+			result = (result * values[countp]) % mod;
+		}
+		countp -= 1;
+	}
+	return result;
+}
+
+//p is a Carmichael's number if every n, which is within 1 < n < p and GCD(p, n) == 1, is Fermat liar
+int* findCarmichaelNumber(int max_number)
+{
+	int is_complete[max_number + 1]; //a sieve of Eratosthenes
+	int i;
+	for(i = 2; i <= max_number; i ++)
+		if(isPrime(i)) 
+			continue;
+		else if(isCarmicheal(i))
+			is_complete[i] = 1;
+	for(i = 2; i <= max_number; i ++)
+		if(is_complete[i])
+			findFactors(i);
+}
+
+bool isCarmicheal(int number)
+{
+	int i;
+	for(i = 1; i < number; i ++)
+	{
+		if(GCD(number, i) == 1)
+		{
+			int result = fastModPower(i, number - 1, number); //Fermat little therome
+			if(result != 1) return false;
+		}
+	}
+	return true;
 }
