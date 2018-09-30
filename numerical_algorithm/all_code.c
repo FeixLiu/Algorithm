@@ -243,8 +243,8 @@ bool isCarmicheal(int number)
 		if(GCD(number, i) == 1)
 		{
 			int result = fastModPower(i, number - 1, number); //Fermat little therome
-			if(result != 1) return false;
+			if(result != 1) return 0;
 		}
 	}
-	return true;
+	return 1;
 }
