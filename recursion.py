@@ -1,4 +1,4 @@
-def eight_queens(spot, placed):
+def eight_queen(spot, placed):
 	if not Legal(spot):
 		return False
 	if placed == 8:
