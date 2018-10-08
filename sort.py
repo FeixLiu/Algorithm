@@ -57,7 +57,73 @@ def shell_sort(a):
 				i = i - gap
 			a[i] = temp
 		gap = (int)(gap / 2)
+		
+def merge_sort(a, left, right):
+	if left < right:
+		mid = (int)((left + right) / 2)
+		merge_sort(a, left, mid)
+		merge_sort(a, mid + 1, right)
+		merge(a, left, mid, right)
+
+def merge(a, left, mid, right):
+	size = right - left + 1
+	temp = [ 0 for _ in range(0, size) ]
+	i = left
+	j = mid + 1
+	count = 0
+	while i <= mid and j <= right:
+		if a[i] < a[j]:
+			temp[count] = a[i]
+			i = i + 1
+		else:
+			temp[count] = a[j]
+			j = j + 1
+		count = count + 1
+	while i <= mid:
+		temp[count] = a[i]
+		count = count + 1
+		i = i + 1
+	while j <= right:
+		temp[count] = a[j]
+		count = count + 1
+		j = j + 1
+	i = left
+	count = 0
+	while i <= right:
+		a[i] = temp[count]
+		i = i + 1
+		count = count + 1
+		
+def create_heap(a, size):
+	for i in range((int)(size / 2), 0, -1):
+		heap_adjust(a, size, i)
+
+def heap_adjust(a, size, par):
+	while par <= (int)(size / 2):
+		temp = a[par]
+		lc = par << 1
+		rc = lc + 1
+		if a[par] < a[lc]:
+			a[par] = a[lc]
+			pos = lc
+		if rc <= size and a[par] < a[rc]:
+			a[par] = a[rc]
+			pos = rc
+		if par == pos:
+			break
+		else:
+			a[pos] = temp
+		par = pos
+
+def heap_sort(a, size):
+	for temp in range(size, 0, -1):
+		inter = a[size]
+		a[size] = a[1]
+		a[1] = inter
+		size -= 1
+		heap_adjust(a, size, 1)
 
 a = [5, 10, 6, 2, 1, 8, 4, 9, 7, 3]
-shell_sort(a)
+create_heap(a, 10)
+heap_sort(a, 10)
 print(a)
